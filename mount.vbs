@@ -1,3 +1,4 @@
+'Author MC 2021-08-17
 Dim WMIService, Process, Processes, Flag, WS
 Set WMIService = GetObject("winmgmts:{impersonationlevel=impersonate}!\\.\root\cimv2")
 Set WS = Wscript.CreateObject("Wscript.Shell")
