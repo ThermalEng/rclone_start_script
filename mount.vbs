@@ -20,6 +20,6 @@ Do while trial < 20 '随便设的，防止进入死循环
 		WS.Run "rclone mount --volname Cloud  sftp://share E:   --read-only --cache-dir %temp%  --vfs-cache-mode writes", 0
 	Else Exit Do
 	End If
-	WS.Sleep 500 '等待挂载完成
+	Wscript.Sleep 500 '等待挂载完成
 Loop
 Set WMIService = nothing
