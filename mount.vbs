@@ -2,7 +2,7 @@ Dim WMIService, Process, Processes, Flag, WS
 Set WMIService = GetObject("winmgmts:{impersonationlevel=impersonate}!\\.\root\cimv2")
 Set WS = Wscript.CreateObject("Wscript.Shell")
 trial = 0
-Do while trial < 20
+Do while trial < 20 '随便设的，防止过多次失败耗费资源
 	count = 0
 	trial = trial + 1
 	Set Processes = WMIService.ExecQuery("select * from win32_process")
@@ -12,9 +12,11 @@ Do while trial < 20
 		end if
 	next
 	If count = 0 Then
-		WS.Run "rclone mount --volname Personal sftp://srv/725d030c-773b-4b5c-a7ee-a99d8f8a3191/switch/LiMC D:    --cache-dir %temp%  --vfs-cache-mode full --attr-timeout 10m --vfs-cache-max-age 24h --vfs-cache-max-size 1G --buffer-size 200M", 0
+		'工作盘，缓存大，读写快
+		WS.Run "rclone mount --volname Personal sftp://personal D:    --cache-dir %temp%  --vfs-cache-mode full --attr-timeout 10m --vfs-cache-max-age 24h --vfs-cache-max-size 1G --buffer-size 200M", 0
 	ElseIf count = 1 Then
-		WS.Run "rclone mount --volname Cloud  sftp://srv/725d030c-773b-4b5c-a7ee-a99d8f8a3191 E:   --read-only --cache-dir %temp%  --vfs-cache-mode writes", 0
+		'资源盘，只读防止误删
+		WS.Run "rclone mount --volname Cloud  sftp://share E:   --read-only --cache-dir %temp%  --vfs-cache-mode writes", 0
 	Else Exit Do
 	End If
 Loop
