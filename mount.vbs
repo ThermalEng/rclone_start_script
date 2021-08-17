@@ -2,7 +2,7 @@ Dim WMIService, Process, Processes, Flag, WS
 Set WMIService = GetObject("winmgmts:{impersonationlevel=impersonate}!\\.\root\cimv2")
 Set WS = Wscript.CreateObject("Wscript.Shell")
 trial = 0
-Do while trial < 20 '随便设的，防止过多次失败耗费资源
+Do while trial < 20 '随便设的，防止进入死循环
 	count = 0 '正在运行的rclone进程数量
 	trial = trial + 1
 	Set Processes = WMIService.ExecQuery("select * from win32_process")
